@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Início{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>Descubra seus próximos reads</h1>
+        <p>Milhares de ebooks esperando por você</p>
+        {% if not current_user.is_authenticated %}
+            <a href="{{ url_for('register') }}" class="btn btn-large">Comece agora</a>
+        {% endif %}
+    </div>
+</section>
+
+<section class="ebooks-section">
+    <h2>Nossos Ebooks</h2>
+    <div class="ebooks-grid">
+        {% for ebook in ebooks %}
+            <div class="ebook-card">
+                <div class="ebook-cover">
+                    <img src="{{ url_for('static', filename='images/covers/' + ebook.cover_image) }}" alt="{{ ebook.title }}">
+                </div>
+                <div class="ebook-info">
+                    <h3>{{ ebook.title }}</h3>
+                    <p class="price">R$ {{ "%.2f"|format(ebook.price) }}</p>
+                    <a href="{{ url_for('ebook_detail', ebook_id=ebook.id) }}" class="btn">Detalhes</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

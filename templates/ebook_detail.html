@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="ebook-detail">
+    <div class="detail-container">
+        <div class="cover">
+            <img src="{{ url_for('static', filename='images/ebook-covers/' + ebook.cover_image) if ebook.cover_image else url_for('static', filename='images/ebook-covers/default.jpg') }}" alt="{{ ebook.title }}">
+        </div>
+        <div class="info">
+            <h1>{{ ebook.title }}</h1>
+            <div class="meta">
+                <span class="author">Por Autor Convidado</span>
+                <span class="rating">★★★★☆ (42 avaliações)</span>
+            </div>
+            
+            <div class="price-box">
+                <span class="price">R$ {{ "%.2f"|format(ebook.price) }}</span>
+                <a href="{{ url_for('checkout', ebook_id=ebook.id) }}" class="cta-button">Comprar Agora</a>
+            </div>
+            
+            <div class="description">
+                <h3>Descrição</h3>
+                <p>{{ ebook.description }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="recommendations">
+    <h2>Quem comprou este ebook também gostou</h2>
+    <div class="ebook-grid">
+        <!-- Ebooks recomendados -->
+    </div>
+</section>
+{% endblock %}
